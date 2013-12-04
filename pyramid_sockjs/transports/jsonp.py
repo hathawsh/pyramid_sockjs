@@ -1,5 +1,6 @@
 """ jsonp transport """
 import uuid
+from urllib import unquote_plus
 from gevent.queue import Empty
 from pyramid.compat import url_unquote
 from pyramid.httpexceptions import HTTPBadRequest, HTTPServerError
@@ -72,7 +73,7 @@ def JSONPolling(session, request):
             if not data.startswith('d='):
                 return HTTPServerError("Payload expected.")
 
-            data = url_unquote(data[2:])
+            data = unquote_plus(data[2:])
 
         if not data:
             return HTTPServerError("Payload expected.")

@@ -2,8 +2,39 @@
 CHANGES
 =======
 
-0.3.6 (Unreleased)
+0.3.10 (Unreleased)
+===================
+
+- Switch info logging to debug 
+
+
+0.3.9 (2013-01-08)
 ==================
+
+- Use unquote_plus instead of unquote for jsonp transport @DustyHarry
+
+
+0.3.8 (2012-11-15)
+==================
+
+- Update sockjs-protocol-0.3.3
+
+- Fix TypeError in Session.__str__ method
+
+- Fix eventsource transport for gevent 1.0b3 version
+
+
+0.3.7 (2012-07-16)
+==================
+
+- Explicitly open session before accept any incoming messages,
+  for webscoket transport.
+
+
+0.3.6 (2012-06-21)
+==================
+
+- Possible session hijacking #7
 
 - Use Configurator action for session gc start. #6
 

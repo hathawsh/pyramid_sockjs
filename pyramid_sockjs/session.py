@@ -52,7 +52,7 @@ class Session(object):
         self.heartbeats = 0
 
     def __str__(self):
-        result = ['id=%r' % self.id]
+        result = ['id=%r' % (self.id,)]
 
         if self.state == STATE_OPEN:
             result.append('connected')
@@ -84,7 +84,7 @@ class Session(object):
         self.expired = True
 
     def open(self):
-        log.info('open session: %s', self.id)
+        log.debug('open session: %s', self.id)
         self.state = STATE_OPEN
         try:
             self.on_open()
@@ -93,7 +93,7 @@ class Session(object):
 
     def close(self):
         """ close session """
-        log.info('close session: %s', self.id)
+        log.debug('close session: %s', self.id)
         self.state = STATE_CLOSING
         try:
             self.on_close()
@@ -101,7 +101,7 @@ class Session(object):
             log.exception("Exceptin in .on_close method.")
 
     def closed(self):
-        log.info('session closed: %s', self.id)
+        log.debug('session closed: %s', self.id)
         self.state = STATE_CLOSED
         self.release()
         self.expire()
@@ -124,13 +124,13 @@ class Session(object):
     def send(self, msg):
         """ send message to client """
         if self.manager.debug:
-            log.info('outgoing message: %s, %s', self.id, str(msg)[:200])
+            log.debug('outgoing message: %s, %s', self.id, str(msg)[:200])
 
         self.tick()
         self.queue.put_nowait(msg)
 
     def message(self, msg):
-        log.info('incoming message: %s, %s', self.id, msg[:200])
+        log.debug('incoming message: %s, %s', self.id, msg[:200])
         self.tick()
         try:
             self.on_message(msg)
@@ -165,7 +165,7 @@ class SessionManager(dict):
     _gc_thread_stop = False
 
     def __init__(self, name, registry, session=None,
-                 gc_cycle=3.0, timeout=timedelta(seconds=10)):
+                 gc_cycle=5.0, timeout=timedelta(seconds=10)):
         self.name = name
         self.route_name = 'sockjs-url-%s'%name
         self.registry = registry

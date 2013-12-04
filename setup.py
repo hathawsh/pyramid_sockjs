@@ -4,11 +4,11 @@ import logging
 import multiprocessing # atexit exception
 from setuptools import setup, find_packages
 
-version='0.3.6'
+version='0.3.9'
 
 install_requires = ['setuptools',
                     'pyramid >= 1.3',
-                    'gevent >= 1.0b2',
+                    'gevent >= 1.0rc2',
                     'gevent-websocket >= 0.3.6',
                     ]
 
